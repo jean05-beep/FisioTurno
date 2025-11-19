@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.LoginPage"
+             BackgroundColor="#0F172A"
+             Title="">
+
+    <ScrollView>
+
+        <VerticalStackLayout Padding="30"
+                             Spacing="25"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Center"
+                             WidthRequest="500">
+
+            <Label Text="FisioTurno"
+                   FontSize="36"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,50,0,20"/>
+
+            <!-- Usuario -->
+            <Label Text="Usuario"
+                   TextColor="#CBD5E1"/>
+
+            <Entry x:Name="txtUsuario"
+                   Placeholder="Ingrese su usuario"
+                   TextColor="White"
+                   PlaceholderColor="#64748B"
+                   BackgroundColor="#1E293B"
+                   HeightRequest="45"
+                   CornerRadius="12"/>
+
+            <!-- Contraseña -->
+            <Label Text="Contraseña"
+                   TextColor="#CBD5E1"/>
+
+            <Entry x:Name="txtPassword"
+                   Placeholder="Ingrese su contraseña"
+                   IsPassword="True"
+                   TextColor="White"
+                   PlaceholderColor="#64748B"
+                   BackgroundColor="#1E293B"
+                   HeightRequest="45"
+                   CornerRadius="12"/>
+
+            <!-- Botón ingresar -->
+            <Button Text="Ingresar"
+                    Clicked="Ingresar_Clicked"
+                    BackgroundColor="#6366F1"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"
+                    Margin="0,30,0,0"/>
+
+            <!-- Botón registrarse -->
+            <Button Text="Registrarse"
+                    Clicked="IrRegistro_Clicked"
+                    BackgroundColor="#334155"
+                    TextColor="White"
+                    CornerRadius="20"
+                    HeightRequest="50"/>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>
+
+
+

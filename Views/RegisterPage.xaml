@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.RegisterPage"
+             Title="Registro"
+             BackgroundColor="#0F172A">
+
+    <VerticalStackLayout Padding="30" Spacing="20">
+
+        <Label Text="Crear cuenta"
+               FontSize="26"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"/>
+
+        <Entry x:Name="txtUsername"
+               Placeholder="Usuario"
+               TextColor="White"
+               PlaceholderColor="#64748B" />
+
+        <Entry x:Name="txtPassword"
+               Placeholder="Contraseña"
+               IsPassword="True"
+               TextColor="White"
+               PlaceholderColor="#64748B" />
+
+        <Entry x:Name="txtConfirm"
+               Placeholder="Confirmar contraseña"
+               IsPassword="True"
+               TextColor="White"
+               PlaceholderColor="#64748B" />
+
+        <Picker x:Name="pickRol"
+                Title="Seleccione Rol"
+                TitleColor="White"
+                TextColor="White">
+            <Picker.Items>
+                <x:String>Administrador</x:String>
+                <x:String>Fisioterapeuta</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <Button Text="Registrar"
+                CornerRadius="20"
+                Clicked="Registrar_Clicked"/>
+
+    </VerticalStackLayout>
+
+</ContentPage>
