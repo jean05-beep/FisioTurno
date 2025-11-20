@@ -1,4 +1,4 @@
-using FisioTurno.Data;
+﻿using FisioTurno.Data;
 using FisioTurno.Models;
 
 namespace FisioTurno.Views;
@@ -15,14 +15,13 @@ public partial class RegisterPage : ContentPage
 
     private async void Registrar_Clicked(object sender, EventArgs e)
     {
-        var user = txtUsername.Text?.Trim();
+        var username = txtUsername.Text?.Trim();
         var pass = txtPassword.Text?.Trim();
         var confirm = txtConfirm.Text?.Trim();
 
-        if (string.IsNullOrWhiteSpace(user) ||
+        if (string.IsNullOrWhiteSpace(username) ||
             string.IsNullOrWhiteSpace(pass) ||
-            string.IsNullOrWhiteSpace(confirm) ||
-            pickRol.SelectedItem == null)
+            string.IsNullOrWhiteSpace(confirm))
         {
             await DisplayAlert("Error", "Todos los campos son obligatorios", "OK");
             return;
@@ -30,25 +29,32 @@ public partial class RegisterPage : ContentPage
 
         if (pass != confirm)
         {
-            await DisplayAlert("Error", "Las contrase�as no coinciden", "OK");
+            await DisplayAlert("Error", "Las contraseñas no coinciden", "OK");
             return;
         }
 
-        bool existe = await _db.ExisteUsuarioAsync(user);
-        if (existe)
+        if (await _db.ExisteUsuarioAsync(username))
         {
             await DisplayAlert("Error", "El usuario ya existe", "OK");
             return;
         }
 
+        // ✔ Asignar siempre rol PACIENTE
         await _db.RegistrarUsuarioAsync(new Usuario
         {
-            Username = user,
+            Username = username,
             Password = pass,
-            Rol = pickRol.SelectedItem.ToString()
+            Rol = "Paciente"
         });
 
-        await DisplayAlert("�xito", "Registro completado", "OK");
+        await DisplayAlert("Éxito", "Paciente registrado correctamente", "OK");
+        await Navigation.PopAsync();
+    }
+
+    private async void Volver_Clicked(object sender, EventArgs e)
+    {
         await Navigation.PopAsync();
     }
 }
+
+

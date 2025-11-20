@@ -15,19 +15,32 @@ namespace FisioTurno.Data
             _db = new SQLiteAsyncConnection(dbPath);
         }
 
+        // Crear tablas
         public async Task InitializeAsync()
         {
             await _db.CreateTableAsync<Usuario>();
         }
 
-        public Task<Usuario?> LoginAsync(string u, string p)
+        // Login
+        public Task<Usuario?> LoginAsync(string username, string password)
         {
-            return _db.Table<Usuario>().FirstOrDefaultAsync(
-                x => x.Username == u && x.Password == p
-            );
+            return _db.Table<Usuario>()
+                      .Where(x => x.Username == username && x.Password == password)
+                      .FirstOrDefaultAsync();
         }
 
-        public Task<int> CrearUsuarioAsync(Usuario u)
+        // Ver si el usuario existe
+        public async Task<bool> ExisteUsuarioAsync(string username)
+        {
+            var result = await _db.Table<Usuario>()
+                                  .Where(x => x.Username == username)
+                                  .FirstOrDefaultAsync();
+
+            return result != null;
+        }
+
+        // Registrar usuario
+        public Task<int> RegistrarUsuarioAsync(Usuario u)
         {
             return _db.InsertAsync(u);
         }

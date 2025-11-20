@@ -1,4 +1,4 @@
-using FisioTurno.Data;
+ï»¿using FisioTurno.Data;
 using FisioTurno.Models;
 
 namespace FisioTurno.Views;
@@ -20,11 +20,12 @@ public partial class LoginPage : ContentPage
 
         if (string.IsNullOrWhiteSpace(u) || string.IsNullOrWhiteSpace(p))
         {
-            await DisplayAlert("Error", "Ingrese usuario y contraseña", "OK");
+            await DisplayAlert("Error", "Ingrese usuario y contraseÃ±a", "OK");
             return;
         }
 
-        var user = await _db.LoginAsync(u, p);
+        // âœ” CORREGIDO: usuario nullable
+        Usuario? user = await _db.LoginAsync(u, p);
 
         if (user == null)
         {
@@ -34,7 +35,7 @@ public partial class LoginPage : ContentPage
 
         await DisplayAlert("Bienvenido", $"Usuario: {user.Username}", "OK");
 
-        // Más adelante: navegar según Rol
+        // MÃ¡s adelante: navegar segÃºn Rol
         // Por ahora solo mostramos mensaje
     }
 

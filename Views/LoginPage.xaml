@@ -1,72 +1,110 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FisioTurno.Views.LoginPage"
-             BackgroundColor="#0F172A"
-             Title="">
+             Title="Login"
+             BackgroundColor="White"
+             x:Class="FisioTurno.Views.LoginPage">
 
     <ScrollView>
 
-        <VerticalStackLayout Padding="30"
-                             Spacing="25"
-                             VerticalOptions="Start"
-                             HorizontalOptions="Center"
-                             WidthRequest="500">
+        <VerticalStackLayout Padding="30" Spacing="20">
 
+            <!-- ESPACIADO SUPERIOR -->
+            <Label HeightRequest="40"/>
+
+            <!-- LOGO CIRCULAR -->
+            <Frame CornerRadius="60"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   BackgroundColor="#E0F2FE"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center">
+
+                <Image Source="logo_fisio.png"
+                       HeightRequest="60"
+                       WidthRequest="60"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+            </Frame>
+
+            <!-- TÍTULO -->
             <Label Text="FisioTurno"
                    FontSize="36"
-                   TextColor="White"
+                   TextColor="#1E293B"
                    FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   Margin="0,50,0,20"/>
+                   HorizontalOptions="Center"/>
 
-            <!-- Usuario -->
-            <Label Text="Usuario"
-                   TextColor="#CBD5E1"/>
+            <!-- TARJETA INPUTS -->
+            <Frame BackgroundColor="#F8FAFC"
+                   CornerRadius="15"
+                   Padding="20"
+                   HasShadow="True">
 
-            <Entry x:Name="txtUsuario"
-                   Placeholder="Ingrese su usuario"
-                   TextColor="White"
-                   PlaceholderColor="#64748B"
-                   BackgroundColor="#1E293B"
-                   HeightRequest="45"
-                   CornerRadius="12"/>
+                <VerticalStackLayout Spacing="15">
 
-            <!-- Contraseña -->
-            <Label Text="Contraseña"
-                   TextColor="#CBD5E1"/>
+                    <!-- CAMPO USUARIO -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_user.png"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               x:Name="txtUsuario"
+                               Placeholder="Usuario"
+                               PlaceholderColor="#9CA3AF"
+                               TextColor="#1E293B"/>
+                    </Grid>
 
-            <Entry x:Name="txtPassword"
-                   Placeholder="Ingrese su contraseña"
-                   IsPassword="True"
-                   TextColor="White"
-                   PlaceholderColor="#64748B"
-                   BackgroundColor="#1E293B"
-                   HeightRequest="45"
-                   CornerRadius="12"/>
+                    <!-- CAMPO CONTRASEÑA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_password.png"
+                               HeightRequest="20"
+                               WidthRequest="20"
+                               VerticalOptions="Center"/>
+                        <Entry Grid.Column="1"
+                               x:Name="txtPassword"
+                               Placeholder="Contraseña"
+                               IsPassword="True"
+                               PlaceholderColor="#9CA3AF"
+                               TextColor="#1E293B"/>
+                    </Grid>
 
-            <!-- Botón ingresar -->
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!-- BOTÓN INGRESAR -->
             <Button Text="Ingresar"
                     Clicked="Ingresar_Clicked"
-                    BackgroundColor="#6366F1"
+                    BackgroundColor="#0284C7"
                     TextColor="White"
-                    CornerRadius="20"
                     HeightRequest="50"
-                    Margin="0,30,0,0"/>
+                    CornerRadius="12"
+                    FontAttributes="Bold"/>
 
-            <!-- Botón registrarse -->
-            <Button Text="Registrarse"
+            <!-- BOTÓN REGISTRARSE -->
+            <Button Text="Crear cuenta"
                     Clicked="IrRegistro_Clicked"
-                    BackgroundColor="#334155"
+                    BackgroundColor="#38BDF8"
                     TextColor="White"
-                    CornerRadius="20"
-                    HeightRequest="50"/>
+                    HeightRequest="50"
+                    CornerRadius="12"/>
+
+            <!-- COPYRIGHT -->
+            <Label Text="© Clínica FisioTurno"
+                   FontSize="12"
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10"/>
 
         </VerticalStackLayout>
 
     </ScrollView>
 
 </ContentPage>
+
+
 
 
 

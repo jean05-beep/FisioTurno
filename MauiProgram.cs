@@ -1,33 +1,27 @@
 ﻿using FisioTurno.Data;
 using FisioTurno.Views;
-using Microsoft.Extensions.Logging;
 
-namespace FisioTurno
+namespace FisioTurno;
+
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
 
-            builder.Services.AddSingleton<AppDatabase>();
-            builder.Services.AddSingleton<LoginPage>();
-            builder.Services.AddTransient<RegisterPage>();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
+        builder.Services.AddSingleton<AppDatabase>();
+        builder.Services.AddSingleton<LoginPage>();
+        builder.Services.AddTransient<RegisterPage>();
 
-#if DEBUG
-            builder.Logging.AddDebug();
-#endif
-
-            return builder.Build();
-        }
+        return builder.Build();
     }
 }
 

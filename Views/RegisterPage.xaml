@@ -2,48 +2,80 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FisioTurno.Views.RegisterPage"
-             Title="Registro"
-             BackgroundColor="#0F172A">
+             BackgroundColor="White">
 
-    <VerticalStackLayout Padding="30" Spacing="20">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
 
-        <Label Text="Crear cuenta"
-               FontSize="26"
-               TextColor="White"
-               HorizontalOptions="Center"
-               FontAttributes="Bold"/>
+            <!-- TITULO -->
+            <Label Text="Crear Cuenta"
+                   FontSize="34"
+                   TextColor="#1E293B"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
 
-        <Entry x:Name="txtUsername"
-               Placeholder="Usuario"
-               TextColor="White"
-               PlaceholderColor="#64748B" />
+            <!-- TARJETA -->
+            <Border StrokeShape="RoundRectangle 15"
+                    BackgroundColor="#F8FAFC"
+                    Padding="20"
+                    StrokeThickness="0">
 
-        <Entry x:Name="txtPassword"
-               Placeholder="Contraseña"
-               IsPassword="True"
-               TextColor="White"
-               PlaceholderColor="#64748B" />
+                <VerticalStackLayout Spacing="18">
 
-        <Entry x:Name="txtConfirm"
-               Placeholder="Confirmar contraseña"
-               IsPassword="True"
-               TextColor="White"
-               PlaceholderColor="#64748B" />
+                    <!-- Usuario -->
+                    <Entry x:Name="txtUsername"
+                           Placeholder="Usuario"
+                           FontSize="16"
+                           TextColor="#1E293B"
+                           PlaceholderColor="#94A3B8"
+                           BackgroundColor="White"
+                           HeightRequest="45"/>
 
-        <Picker x:Name="pickRol"
-                Title="Seleccione Rol"
-                TitleColor="White"
-                TextColor="White">
-            <Picker.Items>
-                <x:String>Administrador</x:String>
-                <x:String>Fisioterapeuta</x:String>
-            </Picker.Items>
-        </Picker>
+                    <!-- Contraseña -->
+                    <Entry x:Name="txtPassword"
+                           Placeholder="Contraseña"
+                           IsPassword="True"
+                           FontSize="16"
+                           TextColor="#1E293B"
+                           PlaceholderColor="#94A3B8"
+                           BackgroundColor="White"
+                           HeightRequest="45"/>
 
-        <Button Text="Registrar"
-                CornerRadius="20"
-                Clicked="Registrar_Clicked"/>
+                    <!-- Confirmar contraseña -->
+                    <Entry x:Name="txtConfirm"
+                           Placeholder="Confirmar contraseña"
+                           IsPassword="True"
+                           FontSize="16"
+                           TextColor="#1E293B"
+                           PlaceholderColor="#94A3B8"
+                           BackgroundColor="White"
+                           HeightRequest="45"/>
 
-    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- BOTÓN REGISTRAR -->
+            <Button Text="Registrar"
+                    BackgroundColor="#0284C7"
+                    TextColor="White"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    FontAttributes="Bold"
+                    Clicked="Registrar_Clicked"/>
+
+            <!-- VOLVER -->
+            <Button Text="Volver"
+                    BackgroundColor="#94A3B8"
+                    TextColor="White"
+                    HeightRequest="50"
+                    CornerRadius="10"
+                    Clicked="Volver_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
+
+
+
