@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.DashboardCitasPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="25" Spacing="20">
+
+            <!-- TÍTULO -->
+            <Label Text="Mis citas"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B"
+                   HorizontalOptions="Center"/>
+
+            <!-- SUBTÍTULO -->
+            <Label Text="Aquí puede visualizar todas sus citas registradas."
+                   FontSize="15"
+                   TextColor="#64748B"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <!-- LISTA DE CITAS -->
+            <CollectionView x:Name="ListaCitas"
+                            SelectionMode="None">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#F8FAFC"
+                                Padding="15"
+                                Margin="0,10">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <!-- NOMBRE -->
+                                <Grid ColumnDefinitions="40,*">
+                                    <Image Source="icon_user.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding NombrePaciente}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
+                                           TextColor="#1E293B"/>
+                                </Grid>
+
+                                <!-- FECHA -->
+                                <Grid ColumnDefinitions="40,*">
+                                    <Image Source="icon_fecha.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Fecha}"
+                                           FontSize="15"
+                                           TextColor="#334155"/>
+                                </Grid>
+
+                                <!-- HORA -->
+                                <Grid ColumnDefinitions="40,*">
+                                    <Image Source="icon_hora.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Hora}"
+                                           FontSize="15"
+                                           TextColor="#334155"/>
+                                </Grid>
+
+                                <!-- SERVICIO -->
+                                <Grid ColumnDefinitions="40,*">
+                                    <Image Source="icon_sesion.png"
+                                           WidthRequest="24"
+                                           HeightRequest="24"
+                                           VerticalOptions="Center"/>
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Servicio}"
+                                           FontSize="15"
+                                           TextColor="#334155"/>
+                                </Grid>
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

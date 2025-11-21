@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System.IO;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using FisioTurno.Models;
 
 namespace FisioTurno.Data
@@ -15,13 +16,13 @@ namespace FisioTurno.Data
             _db = new SQLiteAsyncConnection(dbPath);
         }
 
-        // Crear tablas
         public async Task InitializeAsync()
         {
             await _db.CreateTableAsync<Usuario>();
+            await _db.CreateTableAsync<Cita>();
         }
 
-        // Login
+        // LOGIN
         public Task<Usuario?> LoginAsync(string username, string password)
         {
             return _db.Table<Usuario>()
@@ -29,20 +30,40 @@ namespace FisioTurno.Data
                       .FirstOrDefaultAsync();
         }
 
-        // Ver si el usuario existe
+        // USUARIOS
         public async Task<bool> ExisteUsuarioAsync(string username)
         {
-            var result = await _db.Table<Usuario>()
-                                  .Where(x => x.Username == username)
-                                  .FirstOrDefaultAsync();
+            var u = await _db.Table<Usuario>()
+                             .Where(x => x.Username == username)
+                             .FirstOrDefaultAsync();
 
-            return result != null;
+            return u != null;
         }
 
-        // Registrar usuario
         public Task<int> RegistrarUsuarioAsync(Usuario u)
         {
             return _db.InsertAsync(u);
         }
+
+        // -----------------------------
+        //     CRUD DE CITAS
+        // -----------------------------
+        public Task<int> GuardarCitaAsync(Cita c)
+        {
+            return _db.InsertAsync(c);
+        }
+
+        public Task<List<Cita>> ObtenerCitasAsync()
+        {
+            return _db.Table<Cita>().ToListAsync();
+        }
+
+        public Task<List<Cita>> ObtenerCitasPorNombreAsync(string nombre)
+        {
+            return _db.Table<Cita>()
+                      .Where(x => x.NombrePaciente == nombre)
+                      .ToListAsync();
+        }
     }
 }
+

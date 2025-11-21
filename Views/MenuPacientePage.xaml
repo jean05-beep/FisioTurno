@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.MenuPacientePage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
+
+            <!-- Encabezado -->
+            <Label Text="Bienvenido"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B"/>
+
+            <Label x:Name="lblUsuario"
+                   Text="Usuario"
+                   FontSize="18"
+                   TextColor="#475569"/>
+
+            <!-- Menú Principal -->
+            <VerticalStackLayout Spacing="20">
+
+                <!-- Botón Agendar Cita -->
+                <Border StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#0284C7"
+                        HeightRequest="70">
+                    <Grid Padding="15" ColumnDefinitions="40, *">
+                        <Image Source="icon_fecha.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1"
+                               Text="Agendar cita"
+                               VerticalOptions="Center"
+                               FontSize="20"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AgendarCita_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <!-- Botón Ver Citas -->
+                <Border StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#0EA5E9"
+                        HeightRequest="70">
+                    <Grid Padding="15" ColumnDefinitions="40, *">
+                        <Image Source="icon_nota.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1"
+                               Text="Mis citas"
+                               VerticalOptions="Center"
+                               FontSize="20"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MisCitas_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <!-- Botón Cerrar Sesión -->
+                <Border StrokeShape="RoundRectangle 15"
+                        BackgroundColor="#EF4444"
+                        HeightRequest="70">
+                    <Grid Padding="15" ColumnDefinitions="40, *">
+                        <Image Source="icon_password.png"
+                               WidthRequest="30"
+                               HeightRequest="30"
+                               VerticalOptions="Center"/>
+
+                        <Label Grid.Column="1"
+                               Text="Cerrar sesión"
+                               VerticalOptions="Center"
+                               FontSize="20"
+                               TextColor="White"
+                               FontAttributes="Bold"/>
+
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CerrarSesion_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

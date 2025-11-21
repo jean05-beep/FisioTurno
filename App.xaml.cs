@@ -6,25 +6,28 @@ namespace FisioTurno
     public partial class App : Application
     {
         private readonly AppDatabase _db;
-        private readonly LoginPage _login;
 
-        public App(AppDatabase db, LoginPage login)
+        public App()
         {
             InitializeComponent();
 
-            _db = db;
-            _login = login;
+            // Crear base de datos
+            _db = new AppDatabase();
 
+            // Crear tablas
             Task.Run(async () => await _db.InitializeAsync()).Wait();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            // 👉 Arranca DIRECTAMENTE el Login, sin Shell ni MainPage
-            return new Window(new NavigationPage(_login));
+            // Página inicial
+            var login = new LoginPage(_db);
+
+            return new Window(new NavigationPage(login));
         }
     }
 }
+
 
 
 

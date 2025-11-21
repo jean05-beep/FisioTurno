@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.CitaReservadaPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25"
+                             VerticalOptions="CenterAndExpand">
+
+            <!-- Ícono de confirmación -->
+            <Image Source="icon_check.png"
+                   WidthRequest="120"
+                   HeightRequest="120"
+                   HorizontalOptions="Center"/>
+
+            <!-- Texto principal -->
+            <Label Text="¡Cita reservada!"
+                   FontSize="32"
+                   TextColor="#1E293B"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Su cita ha sido registrada exitosamente."
+                   FontSize="16"
+                   TextColor="#475569"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <!-- TARJETA DE DETALLES -->
+            <Border StrokeShape="RoundRectangle 15"
+                    BackgroundColor="#F8FAFC"
+                    Padding="20">
+
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- NOMBRE -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_user.png"
+                               WidthRequest="28" HeightRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Nombre"
+                                   FontSize="12"
+                                   TextColor="#64748B"/>
+                            <Label x:Name="lblNombre"
+                                   Text="---"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- FECHA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_fecha.png"
+                               WidthRequest="28" HeightRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Fecha"
+                                   FontSize="12"
+                                   TextColor="#64748B"/>
+                            <Label x:Name="lblFecha"
+                                   Text="---"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- HORA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_hora.png"
+                               WidthRequest="28" HeightRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Hora"
+                                   FontSize="12"
+                                   TextColor="#64748B"/>
+                            <Label x:Name="lblHora"
+                                   Text="---"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- SERVICIO -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_sesion.png"
+                               WidthRequest="28" HeightRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Servicio"
+                                   FontSize="12"
+                                   TextColor="#64748B"/>
+                            <Label x:Name="lblServicio"
+                                   Text="---"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- BOTÓN -->
+            <Button Text="Entendido"
+                    BackgroundColor="#0284C7"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="12"
+                    HeightRequest="55"
+                    Clicked="Entendido_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

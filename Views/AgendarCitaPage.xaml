@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.AgendarCitaPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
+
+            <!-- TÍTULO -->
+            <Label Text="Reservar cita"
+                   FontSize="32"
+                   TextColor="#1E293B"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <!-- TARJETA PRINCIPAL -->
+            <Border StrokeShape="RoundRectangle 20"
+                    BackgroundColor="#F8FAFC"
+                    Padding="20">
+
+                <VerticalStackLayout Spacing="20">
+
+                    <!-- NOMBRE -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_user.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Nombre"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <Entry x:Name="txtNombre"
+                                   Placeholder="Carlos López"
+                                   BackgroundColor="White"
+                                   HeightRequest="40"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- FECHA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_fecha.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Fecha"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <DatePicker x:Name="pickFecha"
+                                        BackgroundColor="White"
+                                        HeightRequest="40"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- HORA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_hora.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Hora"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <TimePicker x:Name="pickHora"
+                                        Time="08:00"
+                                        BackgroundColor="White"
+                                        HeightRequest="40"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- SERVICIO -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_sesion.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Servicio"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <Picker x:Name="pickServicio"
+                                    BackgroundColor="White"
+                                    HeightRequest="40">
+                                <Picker.Items>
+                                    <x:String>Fisioterapia</x:String>
+                                    <x:String>Masaje Terapéutico</x:String>
+                                    <x:String>Rehabilitación</x:String>
+                                </Picker.Items>
+                            </Picker>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- NOTAS -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_nota.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Notas"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <Entry x:Name="txtNotas"
+                                   Placeholder="Sesión de rehabilitación"
+                                   BackgroundColor="White"
+                                   HeightRequest="40"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- BOTÓN RESERVAR -->
+            <Button Text="Reservar cita"
+                    BackgroundColor="#0EA5E9"
+                    TextColor="White"
+                    HeightRequest="55"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    Clicked="Reservar_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
+
