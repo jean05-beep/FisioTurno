@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FisioTurno.Views.DashboardCitasFisioPage"
+    BackgroundColor="White"
+    Title="Citas del Día">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- TÍTULO -->
+        <Label Text="Citas del Día"
+               FontSize="26"
+               FontAttributes="Bold"
+               TextColor="#1E293B" />
+
+        <!-- LISTA DE CITAS -->
+        <CollectionView x:Name="ListaCitas"
+                        SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border StrokeShape="RoundRectangle 15"
+                            BackgroundColor="#F1F5F9"
+                            Padding="15"
+                            Margin="0,0,0,12">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label Text="{Binding NombrePaciente}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#1E293B" />
+
+                            <Label Text="{Binding Servicio}"
+                                   FontSize="16"
+                                   TextColor="#475569" />
+
+                            <Label Text="{Binding Hora}"
+                                   FontSize="16"
+                                   TextColor="#475569" />
+
+                            <Label Text="Estado: {Binding Estado}"
+                                   FontSize="14"
+                                   TextColor="#0EA5E9" />
+
+                            <Button Text="Atender"
+                                    BackgroundColor="#0EA5E9"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Padding="6"
+                                    FontAttributes="Bold"
+                                    Clicked="Atender_Clicked" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>

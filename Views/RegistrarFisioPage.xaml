@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.RegistrarFisioPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
+
+            <Label Text="Registrar Fisioterapeuta"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B"/>
+
+            <Border StrokeShape="RoundRectangle 15"
+                    BackgroundColor="#F8FAFC"
+                    Padding="20">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <Entry x:Name="txtNombre"
+                           Placeholder="Nombre completo"
+                           HeightRequest="45"/>
+
+                    <Entry x:Name="txtUsername"
+                           Placeholder="Usuario"
+                           HeightRequest="45"/>
+
+                    <Entry x:Name="txtPassword"
+                           Placeholder="Contraseña"
+                           IsPassword="True"
+                           HeightRequest="45"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Button Text="Registrar"
+                    BackgroundColor="#0284C7"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Registrar_Clicked"/>
+
+            <Button Text="Volver"
+                    BackgroundColor="#94A3B8"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Clicked="Volver_Clicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+

@@ -22,6 +22,15 @@
 
                 <VerticalStackLayout Spacing="18">
 
+                    <!-- Nombre Completo -->
+                    <Entry x:Name="txtNombre"
+                           Placeholder="Nombre completo"
+                           FontSize="16"
+                           TextColor="#1E293B"
+                           PlaceholderColor="#94A3B8"
+                           BackgroundColor="White"
+                           HeightRequest="45"/>
+
                     <!-- Usuario -->
                     <Entry x:Name="txtUsername"
                            Placeholder="Usuario"
@@ -76,6 +85,5 @@
     </ScrollView>
 
 </ContentPage>
-
 
 

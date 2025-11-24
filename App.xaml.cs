@@ -6,8 +6,8 @@ namespace FisioTurno
 {
     public partial class App : Application
     {
-        public static AppDatabase Database { get; private set; }
-        public static Usuario UsuarioActual { get; set; }
+        public static AppDatabase Database { get; private set; } = null!;
+        public static Usuario? UsuarioActual { get; set; }
 
         public App()
         {
@@ -16,19 +16,20 @@ namespace FisioTurno
             // Crear base de datos global
             Database = new AppDatabase();
 
-            // Crear tablas
-            Task.Run(async () => await Database.InitializeAsync()).Wait();
+            // Crear tablas e inicializar admin (no bloquear el hilo principal)
+            Task.Run(async () => await Database.InitializeAsync());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            // Abrir página inicial (LOGIN) enviando la base de datos
+            // Crear ventana principal con Login
             var login = new LoginPage(Database);
 
             return new Window(new NavigationPage(login));
         }
     }
 }
+
 
 
 

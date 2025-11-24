@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.AdminMenuPage"
+             BackgroundColor="White">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25">
+
+            <Label Text="Administrador"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B"/>
+
+            <Label x:Name="lblAdmin"
+                   Text="Admin"
+                   FontSize="18"
+                   TextColor="#475569"/>
+
+            <VerticalStackLayout Spacing="20">
+
+                <Border BackgroundColor="#0284C7" HeightRequest="70" StrokeShape="RoundRectangle 15">
+                    <Grid Padding="15" ColumnDefinitions="40,*">
+                        <Image Source="icon_user_add.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Registrar Fisioterapeuta" FontSize="20" TextColor="White" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="RegistrarFisio_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <Border BackgroundColor="#0EA5E9" HeightRequest="70" StrokeShape="RoundRectangle 15">
+                    <Grid Padding="15" ColumnDefinitions="40,*">
+                        <Image Source="icon_list.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Lista de Fisioterapeutas" FontSize="20" TextColor="White" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ListaFisio_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <Border BackgroundColor="#38BDF8" HeightRequest="70" StrokeShape="RoundRectangle 15">
+                    <Grid Padding="15" ColumnDefinitions="40,*">
+                        <Image Source="icon_calendar.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Ver todas las citas" FontSize="20" TextColor="White" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="VerCitas_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+                <Border BackgroundColor="#EF4444" HeightRequest="70" StrokeShape="RoundRectangle 15">
+                    <Grid Padding="15" ColumnDefinitions="40,*">
+                        <Image Source="icon_logout.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"/>
+                        <Label Grid.Column="1" Text="Cerrar Sesión" VerticalOptions="Center" FontSize="20" TextColor="White" FontAttributes="Bold"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Cerrar_Tapped"/>
+                        </Grid.GestureRecognizers>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
+
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FisioTurno.Views.DashboardCitasAdminPage"
+             BackgroundColor="White">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <Label Text="Todas las citas"
+               FontSize="30"
+               FontAttributes="Bold"
+               TextColor="#1E293B"/>
+
+        <CollectionView x:Name="ListaCitas" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border StrokeShape="RoundRectangle 12"
+                            BackgroundColor="#F1F5F9"
+                            Padding="15"
+                            Margin="0,5">
+
+                        <VerticalStackLayout Spacing="5">
+
+                            <Label Text="{Binding NombrePaciente}" FontSize="18" FontAttributes="Bold"/>
+                            <Label Text="{Binding Servicio}" FontSize="15"/>
+                            <Label Text="{Binding Fecha}" FontSize="13"/>
+                            <Label Text="{Binding Hora}" FontSize="13"/>
+                            <Label Text="{Binding Notas}" FontSize="12"/>
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>
+

@@ -17,10 +17,14 @@ namespace FisioTurno.Models
         public string Servicio { get; set; } = string.Empty;
         public string Notas { get; set; } = string.Empty;
 
-        // Campo opcional para ordenamiento real por fecha/hora
+        // Estado de la cita: Pendiente, Atendida, Cancelada
+        public string Estado { get; set; } = "Pendiente";
+
+        // Fecha completa para ordenamiento
         public DateTime FechaCompleta { get; set; }
     }
 }
+
 
 
 

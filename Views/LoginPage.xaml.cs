@@ -33,17 +33,30 @@ namespace FisioTurno.Views
                 return;
             }
 
-            await DisplayAlert("Bienvenido", $"Usuario: {user.Username}", "OK");
-
-            // 👉 Guardar usuario global
+            // Guardar usuario global
             App.UsuarioActual = user;
 
-            // 👉 OPCIÓN 1 (RECOMENDADA): reemplazar pantalla root, NO permite volver al login
-            Application.Current.MainPage = new NavigationPage(new MenuPacientePage(_db, user));
-            return;
+            // =====================================================
+            //     NAVEGACIÓN PROFESIONAL SEGÚN ROL
+            // =====================================================
+            switch (user.Rol.ToUpper())
+            {
+                case "ADMIN":
+                    Application.Current.MainPage =
+                        new NavigationPage(new AdminMenuPage(_db, user));
+                    break;
 
-            // 👉 OPCIÓN 2: Mantener navegación normal (puede volver al login)
-            // await Navigation.PushAsync(new MenuPacientePage(_db, user));
+                case "FISIOTERAPEUTA":
+                    Application.Current.MainPage =
+                        new NavigationPage(new MenuFisioPage(_db, user));
+                    break;
+
+                case "PACIENTE":
+                default:
+                    Application.Current.MainPage =
+                        new NavigationPage(new MenuPacientePage(_db, user));
+                    break;
+            }
         }
 
         private async void IrRegistro_Clicked(object sender, EventArgs e)

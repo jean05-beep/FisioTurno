@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using FisioTurno.Models;
+using System.Diagnostics;
 
 namespace FisioTurno.Data
 {
@@ -13,6 +14,12 @@ namespace FisioTurno.Data
         public AppDatabase()
         {
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "fisioturno.db3");
+
+            Debug.WriteLine("=====================================");
+            Debug.WriteLine("📌 Ruta real BD:");
+            Debug.WriteLine(dbPath);
+            Debug.WriteLine("=====================================");
+
             _db = new SQLiteAsyncConnection(dbPath);
         }
 
@@ -23,6 +30,25 @@ namespace FisioTurno.Data
         {
             await _db.CreateTableAsync<Usuario>();
             await _db.CreateTableAsync<Cita>();
+
+            // Crear admin si no existe
+            var admin = await _db.Table<Usuario>()
+                                 .Where(x => x.Rol == "ADMIN")
+                                 .FirstOrDefaultAsync();
+
+            if (admin == null)
+            {
+                var nuevoAdmin = new Usuario
+                {
+                    NombreCompleto = "Administrador General",
+                    Username = "admin",
+                    Password = "admin123",
+                    Rol = "ADMIN"
+                };
+
+                await _db.InsertAsync(nuevoAdmin);
+                Debug.WriteLine("✔ ADMIN creado");
+            }
         }
 
         // ============================
@@ -52,17 +78,34 @@ namespace FisioTurno.Data
             return _db.InsertAsync(u);
         }
 
+        // ✔ Obtener SOLO fisioterapeutas
+        public Task<List<Usuario>> ObtenerFisioterapeutasAsync()
+        {
+            return _db.Table<Usuario>()
+                      .Where(u => u.Rol == "FISIOTERAPEUTA")
+                      .ToListAsync();
+        }
+
+        // ✔ ACTUALIZAR Fisioterapeuta
+        public Task<int> ActualizarUsuarioAsync(Usuario u)
+        {
+            return _db.UpdateAsync(u);
+        }
+
+        // ✔ ELIMINAR Fisioterapeuta
+        public Task<int> EliminarUsuarioAsync(Usuario u)
+        {
+            return _db.DeleteAsync(u);
+        }
+
         // ============================
         //          CITAS
         // ============================
-
-        // Registrar una cita
         public Task<int> GuardarCitaAsync(Cita c)
         {
             return _db.InsertAsync(c);
         }
 
-        // Obtener todas las citas (uso general)
         public Task<List<Cita>> ObtenerCitasAsync()
         {
             return _db.Table<Cita>()
@@ -70,7 +113,6 @@ namespace FisioTurno.Data
                       .ToListAsync();
         }
 
-        // Obtener citas por nombre (no recomendado pero lo dejo por compatibilidad)
         public Task<List<Cita>> ObtenerCitasPorNombreAsync(string nombre)
         {
             return _db.Table<Cita>()
@@ -79,7 +121,6 @@ namespace FisioTurno.Data
                       .ToListAsync();
         }
 
-        // 👉 MÉTODO CORRECTO — CITAS POR PACIENTE ID
         public Task<List<Cita>> ObtenerCitasPorIdPacienteAsync(int pacienteId)
         {
             return _db.Table<Cita>()
@@ -88,18 +129,15 @@ namespace FisioTurno.Data
                       .ToListAsync();
         }
 
-        // Eliminar cita
         public Task<int> EliminarCitaAsync(Cita c)
         {
             return _db.DeleteAsync(c);
         }
 
-        // Actualizar cita (por si luego agregas estados)
         public Task<int> ActualizarCitaAsync(Cita c)
         {
             return _db.UpdateAsync(c);
         }
     }
 }
-
 
