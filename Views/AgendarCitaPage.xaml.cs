@@ -6,11 +6,17 @@ namespace FisioTurno.Views
     public partial class AgendarCitaPage : ContentPage
     {
         private readonly AppDatabase _db;
+        private readonly Usuario _usuario;
 
-        public AgendarCitaPage(AppDatabase db)
+        public AgendarCitaPage(AppDatabase db, Usuario user)
         {
             InitializeComponent();
             _db = db;
+            _usuario = user;
+
+            // Mostrar el nombre del paciente automáticamente
+            txtNombre.Text = user.Username;
+            txtNombre.IsEnabled = false;
 
             // Fecha mínima permitida
             pickFecha.MinimumDate = DateTime.Today;
@@ -19,7 +25,7 @@ namespace FisioTurno.Views
             if (pickServicio.Items.Count > 0)
                 pickServicio.SelectedIndex = 0;
 
-            // Asignar hora por defecto (para evitar null)
+            // Hora por defecto
             pickHora.Time = new TimeSpan(8, 0, 0);
         }
 
@@ -32,21 +38,23 @@ namespace FisioTurno.Views
                 return;
             }
 
-            // Obtener valores correctamente
             string nombre = txtNombre.Text;
-            string fecha = pickFecha.Date.ToString("dd/MM/yyyy");
+            DateTime fechaSeleccionada = pickFecha.Date;
+            TimeSpan horaSeleccionada = pickHora.Time;
 
-            // ✔ CORREGIDO: formato correcto de hora
-            string hora = DateTime.Today
-                            .Add(pickHora.Time)
-                            .ToString("hh:mm tt");
+            // Combinar fecha y hora en un DateTime
+            DateTime fechaCompleta = fechaSeleccionada.Add(horaSeleccionada);
+
+            string fecha = fechaCompleta.ToString("dd/MM/yyyy");
+            string hora = fechaCompleta.ToString("hh:mm tt");
 
             string servicio = pickServicio.SelectedItem?.ToString() ?? "Sin servicio";
             string notas = txtNotas.Text ?? "";
 
-            // Crear cita
+            // Crear cita completa
             var cita = new Cita
             {
+                PacienteId = _usuario.Id,
                 NombrePaciente = nombre,
                 Fecha = fecha,
                 Hora = hora,
@@ -54,12 +62,12 @@ namespace FisioTurno.Views
                 Notas = notas
             };
 
-            // Guardar
+            // Guardar cita en SQLite
             await _db.GuardarCitaAsync(cita);
 
-            // Navegar a pantalla de confirmación
+            // Ir a pantalla confirmación
             await Navigation.PushAsync(
-                new CitaReservadaPage(nombre, fecha, hora, servicio)
+                new CitaReservadaPage(nombre, fecha, hora, servicio, _db, _usuario)
             );
         }
     }

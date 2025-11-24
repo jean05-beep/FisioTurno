@@ -1,26 +1,40 @@
-using FisioTurno.Data;
+﻿using FisioTurno.Data;
 using FisioTurno.Models;
 
-namespace FisioTurno.Views;
-
-public partial class DashboardCitasPage : ContentPage
+namespace FisioTurno.Views
 {
-    private readonly AppDatabase _db;
-    private readonly Usuario _usuario;
-
-    public DashboardCitasPage(AppDatabase db, Usuario usuario)
+    public partial class DashboardCitasPage : ContentPage
     {
-        InitializeComponent();
-        _db = db;
-        _usuario = usuario;
+        private readonly AppDatabase _db;
+        private readonly Usuario _usuario;
 
-        CargarCitas();
-    }
+        public DashboardCitasPage(AppDatabase db, Usuario usuario)
+        {
+            InitializeComponent();
+            _db = db;
+            _usuario = usuario;
+        }
 
-    private async void CargarCitas()
-    {
-        var citas = await _db.ObtenerCitasPorNombreAsync(_usuario.Username);
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await CargarCitas();
+        }
 
-        ListaCitas.ItemsSource = citas;
+        private async Task CargarCitas()
+        {
+            // ✔ Mejor usar ID en vez de nombre
+            var citas = await _db.ObtenerCitasPorIdPacienteAsync(_usuario.Id);
+
+            if (citas == null || citas.Count == 0)
+            {
+                ListaCitas.ItemsSource = null;
+                await DisplayAlert("Sin citas", "No tiene citas registradas.", "OK");
+                return;
+            }
+
+            ListaCitas.ItemsSource = citas;
+        }
     }
 }
+

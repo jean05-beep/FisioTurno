@@ -35,8 +35,15 @@ namespace FisioTurno.Views
 
             await DisplayAlert("Bienvenido", $"Usuario: {user.Username}", "OK");
 
-            // 👉 ENVIAR AL MENÚ DEL PACIENTE (NO A AGENDAR)
-            await Navigation.PushAsync(new MenuPacientePage(_db, user));
+            // 👉 Guardar usuario global
+            App.UsuarioActual = user;
+
+            // 👉 OPCIÓN 1 (RECOMENDADA): reemplazar pantalla root, NO permite volver al login
+            Application.Current.MainPage = new NavigationPage(new MenuPacientePage(_db, user));
+            return;
+
+            // 👉 OPCIÓN 2: Mantener navegación normal (puede volver al login)
+            // await Navigation.PushAsync(new MenuPacientePage(_db, user));
         }
 
         private async void IrRegistro_Clicked(object sender, EventArgs e)
@@ -45,6 +52,7 @@ namespace FisioTurno.Views
         }
     }
 }
+
 
 
 
