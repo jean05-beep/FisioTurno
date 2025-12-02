@@ -5,8 +5,12 @@ namespace FisioTurno.Views
 {
     public partial class AgendarCitaPage : ContentPage
     {
+        // ⚠️ Nota: Cambia esta IP si usas el emulador (debe ser 10.0.2.2) 
+        private const string UrlCrud = "http://192.168.100.1/FisioTurno/post.php";
+        private readonly HttpClient cliente = new HttpClient();
         private readonly AppDatabase _db;
         private readonly Usuario _usuario;
+        FileResult fotoTomada;
 
         public AgendarCitaPage(AppDatabase db, Usuario user)
         {
@@ -27,6 +31,7 @@ namespace FisioTurno.Views
 
             // Hora por defecto
             pickHora.Time = new TimeSpan(8, 0, 0);
+
         }
 
         private async void Reservar_Clicked(object sender, EventArgs e)
@@ -70,8 +75,41 @@ namespace FisioTurno.Views
                 new CitaReservadaPage(nombre, fecha, hora, servicio, _db, _usuario)
             );
         }
+
+        private async void btnfoto_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                fotoTomada = await MediaPicker.Default.CapturePhotoAsync();
+
+                if (fotoTomada != null)
+                {
+                    var stream = await fotoTomada.OpenReadAsync();
+                    imgFoto.Source = ImageSource.FromStream(() => stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+
+
+        }
+        private async Task<string> ConvertirFotoBase64(FileResult foto)
+        {
+            using var stream = await foto.OpenReadAsync();
+            using var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            return Convert.ToBase64String(ms.ToArray());
+        }
     }
 }
+
+
+
+
+
+
 
 
 
