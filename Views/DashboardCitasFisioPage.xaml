@@ -6,60 +6,92 @@
     BackgroundColor="White"
     Title="Citas del Día">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <!-- SOLO UN CONTENT -->
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- TÍTULO -->
-        <Label Text="Citas del Día"
-               FontSize="26"
-               FontAttributes="Bold"
-               TextColor="#1E293B" />
+            <!-- TÍTULO -->
+            <Label Text="Citas del Día"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="#1E293B" />
 
-        <!-- LISTA DE CITAS -->
-        <CollectionView x:Name="ListaCitas"
-                        SelectionMode="None">
+            <!-- LISTA DE CITAS -->
+            <CollectionView x:Name="ListaCitas"
+                            SelectionMode="None">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 15"
-                            BackgroundColor="#F1F5F9"
-                            Padding="15"
-                            Margin="0,0,0,12">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                        <VerticalStackLayout Spacing="5">
+                        <Border StrokeShape="RoundRectangle 15"
+                                BackgroundColor="#F1F5F9"
+                                Padding="15"
+                                Margin="0,0,0,12">
 
-                            <Label Text="{Binding NombrePaciente}"
-                                   FontSize="20"
-                                   FontAttributes="Bold"
-                                   TextColor="#1E293B" />
+                            <VerticalStackLayout Spacing="15">
 
-                            <Label Text="{Binding Servicio}"
-                                   FontSize="16"
-                                   TextColor="#475569" />
+                                <!-- FOTO + DATOS -->
+                                <Grid ColumnDefinitions="120,*"
+                                      ColumnSpacing="15">
 
-                            <Label Text="{Binding Hora}"
-                                   FontSize="16"
-                                   TextColor="#475569" />
+                                    <!-- FOTO DEL PACIENTE -->
+                                    <Image WidthRequest="110"
+                                           HeightRequest="110"
+                                           Aspect="AspectFill"
+                                           BackgroundColor="#E5E7EB"
+                                           Source="{Binding FotoImagen}" />
 
-                            <Label Text="Estado: {Binding Estado}"
-                                   FontSize="14"
-                                   TextColor="#0EA5E9" />
+                                    <!-- DATOS -->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="5">
 
-                            <Button Text="Atender"
-                                    BackgroundColor="#0EA5E9"
-                                    TextColor="White"
-                                    CornerRadius="10"
-                                    Padding="6"
-                                    FontAttributes="Bold"
-                                    Clicked="Atender_Clicked" />
+                                        <Label Text="{Binding NombrePaciente}"
+                                               FontSize="20"
+                                               FontAttributes="Bold"
+                                               TextColor="#1E293B" />
 
-                        </VerticalStackLayout>
+                                        <Label Text="{Binding Servicio}"
+                                               FontSize="16"
+                                               TextColor="#475569" />
 
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                                        <Label Text="{Binding Hora}"
+                                               FontSize="16"
+                                               TextColor="#475569" />
 
-        </CollectionView>
+                                        <Label Text="{Binding Notas}"
+                                               FontSize="14"
+                                               TextColor="#64748B" />
 
-    </VerticalStackLayout>
+                                        <Label Text="Estado: {Binding Estado}"
+                                               FontSize="14"
+                                               TextColor="#0284C7"
+                                               FontAttributes="Bold" />
+
+                                    </VerticalStackLayout>
+
+                                </Grid>
+
+                                <!-- BOTÓN -->
+                                <Button Text="Atender"
+                                        BackgroundColor="#0EA5E9"
+                                        TextColor="White"
+                                        CornerRadius="10"
+                                        Padding="10"
+                                        FontAttributes="Bold"
+                                        Clicked="Atender_Clicked" />
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>
+
+
+

@@ -8,13 +8,13 @@
         <VerticalStackLayout Padding="30" Spacing="25"
                              VerticalOptions="CenterAndExpand">
 
-            <!-- Ícono de confirmación -->
+            <!-- Ícono -->
             <Image Source="icon_check.png"
                    WidthRequest="120"
                    HeightRequest="120"
                    HorizontalOptions="Center"/>
 
-            <!-- Texto principal -->
+            <!-- Título -->
             <Label Text="¡Cita reservada!"
                    FontSize="32"
                    TextColor="#1E293B"
@@ -27,20 +27,20 @@
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"/>
 
-            <!-- TARJETA DE DETALLES -->
+            <!-- Tarjeta de detalles -->
             <Border StrokeShape="RoundRectangle 15"
                     BackgroundColor="#F8FAFC"
                     Padding="20">
 
                 <VerticalStackLayout Spacing="20">
 
-                    <!-- NOMBRE -->
+                    <!-- Nombre -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_user.png"
                                WidthRequest="28" HeightRequest="28"
                                VerticalOptions="Center"/>
                         <VerticalStackLayout Grid.Column="1">
-                            <Label Text="Nombre"
+                            <Label Text="Nombre del paciente"
                                    FontSize="12"
                                    TextColor="#64748B"/>
                             <Label x:Name="lblNombre"
@@ -51,7 +51,24 @@
                         </VerticalStackLayout>
                     </Grid>
 
-                    <!-- FECHA -->
+                    <!-- Fisioterapeuta -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_user_add.png"
+                               WidthRequest="28" HeightRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="Fisioterapeuta asignado"
+                                   FontSize="12"
+                                   TextColor="#64748B"/>
+                            <Label x:Name="lblFisioterapeuta"
+                                   Text="---"
+                                   FontSize="16"
+                                   TextColor="#1E293B"
+                                   FontAttributes="Bold"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Fecha -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_fecha.png"
                                WidthRequest="28" HeightRequest="28"
@@ -68,7 +85,7 @@
                         </VerticalStackLayout>
                     </Grid>
 
-                    <!-- HORA -->
+                    <!-- Hora -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_hora.png"
                                WidthRequest="28" HeightRequest="28"
@@ -85,7 +102,7 @@
                         </VerticalStackLayout>
                     </Grid>
 
-                    <!-- SERVICIO -->
+                    <!-- Servicio -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_sesion.png"
                                WidthRequest="28" HeightRequest="28"
@@ -106,7 +123,7 @@
 
             </Border>
 
-            <!-- BOTÓN -->
+            <!-- Botón -->
             <Button Text="Entendido"
                     BackgroundColor="#0284C7"
                     TextColor="White"

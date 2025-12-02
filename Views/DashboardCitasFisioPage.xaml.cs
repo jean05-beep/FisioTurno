@@ -1,5 +1,6 @@
-using FisioTurno.Data;
+ï»¿using FisioTurno.Data;
 using FisioTurno.Models;
+using System.Collections.ObjectModel;
 
 namespace FisioTurno.Views
 {
@@ -17,22 +18,45 @@ namespace FisioTurno.Views
             CargarCitas();
         }
 
-        // Cargar solo citas del día actual
+        // ===============================
+        //   CARGAR CITAS DEL FISIOTERAPEUTA
+        // ===============================
         private async void CargarCitas()
         {
             var todas = await _db.ObtenerCitasAsync();
-
             var hoy = DateTime.Today;
 
+            // Filtrar citas de HOY + del fisioterapeuta logueado
             var citasHoy = todas
-                .Where(c => c.FechaCompleta.Date == hoy)
+                .Where(c =>
+                    c.FechaCompleta.Date == hoy &&
+                    c.FisioterapeutaId == _usuario.Id)
                 .OrderBy(c => c.FechaCompleta)
                 .ToList();
+
+            // Convertir foto Base64 â†’ ImageSource
+            foreach (var cita in citasHoy)
+            {
+                if (!string.IsNullOrEmpty(cita.Foto))
+                {
+                    try
+                    {
+                        byte[] bytes = Convert.FromBase64String(cita.Foto);
+                        cita.FotoImagen = ImageSource.FromStream(() => new MemoryStream(bytes));
+                    }
+                    catch
+                    {
+                        cita.FotoImagen = null;
+                    }
+                }
+            }
 
             ListaCitas.ItemsSource = citasHoy;
         }
 
-        // Atender cita
+        // ===============================
+        //         ATENDER CITA
+        // ===============================
         private async void Atender_Clicked(object sender, EventArgs e)
         {
             var boton = sender as Button;
@@ -43,17 +67,20 @@ namespace FisioTurno.Views
 
             bool confirmar = await DisplayAlert(
                 "Confirmar",
-                $"¿Marcar la cita de '{cita.NombrePaciente}' como Atendida?",
-                "Sí", "No");
+                $"Â¿Deseas marcar como atendida la cita de:\n\n{cita.NombrePaciente}?",
+                "SÃ­", "No");
 
-            if (!confirmar) return;
+            if (!confirmar)
+                return;
 
             cita.Estado = "Atendida";
 
             await _db.ActualizarCitaAsync(cita);
-            await DisplayAlert("Éxito", "Cita marcada como atendida", "OK");
+            await DisplayAlert("âœ” Ã‰xito", "La cita ha sido marcada como atendida", "OK");
 
             CargarCitas();
         }
     }
 }
+
+

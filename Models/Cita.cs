@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using Microsoft.Maui.Controls;
 
 namespace FisioTurno.Models
 {
@@ -7,29 +8,44 @@ namespace FisioTurno.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
-        // ID del usuario (Paciente dueño de la cita)
+        // ID del paciente (usuario)
         public int PacienteId { get; set; }
 
-        // Datos básicos
+        // ID del fisioterapeuta asignado
+        public int FisioterapeutaId { get; set; }
+
+        // Datos del paciente
         public string NombrePaciente { get; set; } = string.Empty;
+
+        // Datos del fisioterapeuta
+        public string NombreFisioterapeuta { get; set; } = string.Empty;
+
+        // Información de la cita
         public string Fecha { get; set; } = string.Empty;
         public string Hora { get; set; } = string.Empty;
         public string Servicio { get; set; } = string.Empty;
         public string Notas { get; set; } = string.Empty;
 
-        // Estado de la cita: Pendiente, Atendida, Cancelada
+        // Estado → Pendiente / Atendida / Cancelada
         public string Estado { get; set; } = "Pendiente";
 
-        // Fecha completa para ordenamiento
+        // Fecha completa para ordenar
         public DateTime FechaCompleta { get; set; }
 
-        // Foto enviada a la API en Base64
+        // 📸 Foto enviada a API (Base64)
         public string Foto { get; set; }
 
-        // Ruta de la foto guardada en servidor (viene de la API)
+        // Ruta proporcionada por API
         public string RutaFoto { get; set; }
+
+        // Imagen lista para mostrar en XAML
+        [Ignore]
+        public ImageSource FotoImagen { get; set; }
     }
 }
+
+
+
 
 
 

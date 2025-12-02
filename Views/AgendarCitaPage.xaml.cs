@@ -1,91 +1,71 @@
 ﻿using FisioTurno.Data;
 using FisioTurno.Models;
+using System.Collections.Generic;
 
 namespace FisioTurno.Views
 {
     public partial class AgendarCitaPage : ContentPage
     {
-        // ⚠️ Nota: Cambia esta IP si usas el emulador (debe ser 10.0.2.2) 
+        // API PHP
         private const string UrlCrud = "http://192.168.100.1/FisioTurno/post.php";
         private readonly HttpClient cliente = new HttpClient();
+
         private readonly AppDatabase _db;
         private readonly Usuario _usuario;
+        private List<Usuario> _fisioterapeutas = new();
+
         FileResult fotoTomada;
 
         public AgendarCitaPage(AppDatabase db, Usuario user)
         {
             InitializeComponent();
+
             _db = db;
             _usuario = user;
 
-            // Mostrar el nombre del paciente automáticamente
-            txtNombre.Text = user.Username;
+            // Nombre del paciente
+            txtNombre.Text = user.NombreCompleto;
             txtNombre.IsEnabled = false;
 
-            // Fecha mínima permitida
             pickFecha.MinimumDate = DateTime.Today;
 
-            // Servicio por defecto
-            if (pickServicio.Items.Count > 0)
-                pickServicio.SelectedIndex = 0;
+            // Cargar fisioterapeutas
+            CargarFisioterapeutas();
 
-            // Hora por defecto
-            pickHora.Time = new TimeSpan(8, 0, 0);
-
+            // Cargar horas disponibles
+            CargarHorasDisponibles();
         }
 
-        private async void Reservar_Clicked(object sender, EventArgs e)
+        // ======================================================
+        //   Cargar fisioterapeutas desde SQLite
+        // ======================================================
+        private async void CargarFisioterapeutas()
         {
-            if (fotoTomada == null)
-            {
-                await DisplayAlert("Error", "Debes tomar una foto.", "OK");
-                return;
-            }
+            _fisioterapeutas = await _db.ObtenerFisioterapeutasAsync();
 
-            // Convertir foto
-            string base64Foto = await ConvertirFotoBase64(fotoTomada);
-
-            // Validación del nombre
-            if (string.IsNullOrWhiteSpace(txtNombre.Text))
-            {
-                await DisplayAlert("Error", "Ingrese el nombre del paciente.", "OK");
-                return;
-            }
-
-            string nombre = txtNombre.Text;
-            DateTime fechaSeleccionada = pickFecha.Date;
-            TimeSpan horaSeleccionada = pickHora.Time;
-
-            // Combinar fecha y hora en un DateTime
-            DateTime fechaCompleta = fechaSeleccionada.Add(horaSeleccionada);
-
-            string fecha = fechaCompleta.ToString("dd/MM/yyyy");
-            string hora = fechaCompleta.ToString("hh:mm tt");
-
-            string servicio = pickServicio.SelectedItem?.ToString() ?? "Sin servicio";
-            string notas = txtNotas.Text ?? "";
-
-            // Crear cita completa
-            var cita = new Cita
-            {
-                PacienteId = _usuario.Id,
-                NombrePaciente = nombre,
-                Fecha = fecha,
-                Hora = hora,
-                Servicio = servicio,
-                Notas = notas,
-                Foto = base64Foto
-            };
-
-            // Guardar cita en SQLite
-            await _db.GuardarCitaAsync(cita);
-
-            // Ir a pantalla confirmación
-            await Navigation.PushAsync(
-                new CitaReservadaPage(nombre, fecha, hora, servicio, _db, _usuario)
-            );
+            pickFisio.ItemsSource = _fisioterapeutas;
+            pickFisio.ItemDisplayBinding = new Binding("NombreCompleto");
         }
 
+        // ======================================================
+        //    Generar horarios 08:00 - 17:00 cada 30 min
+        // ======================================================
+        private void CargarHorasDisponibles()
+        {
+            var horas = new List<string>();
+
+            for (int h = 8; h <= 17; h++)
+            {
+                horas.Add($"{h}:00");
+                horas.Add($"{h}:30");
+            }
+
+            pickHora.ItemsSource = horas;
+        }
+
+        // ======================================================
+        //                 Tomar foto
+        // ======================================================
         private async void btnfoto_Clicked(object sender, EventArgs e)
         {
             try
@@ -102,9 +82,8 @@ namespace FisioTurno.Views
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
-
-
         }
+
         private async Task<string> ConvertirFotoBase64(FileResult foto)
         {
             using var stream = await foto.OpenReadAsync();
@@ -112,8 +91,83 @@ namespace FisioTurno.Views
             await stream.CopyToAsync(ms);
             return Convert.ToBase64String(ms.ToArray());
         }
+
+        // ======================================================
+        //                 Reservar cita
+        // ======================================================
+        private async void Reservar_Clicked(object sender, EventArgs e)
+        {
+            if (fotoTomada == null)
+            {
+                await DisplayAlert("Error", "Debes tomar una foto.", "OK");
+                return;
+            }
+
+            if (pickFisio.SelectedItem is null)
+            {
+                await DisplayAlert("Error", "Seleccione un fisioterapeuta.", "OK");
+                return;
+            }
+
+            if (pickHora.SelectedItem is null)
+            {
+                await DisplayAlert("Error", "Seleccione una hora.", "OK");
+                return;
+            }
+
+            string base64Foto = await ConvertirFotoBase64(fotoTomada);
+
+            var fisio = (Usuario)pickFisio.SelectedItem;
+
+            // Formar fecha completa
+            string horaText = pickHora.SelectedItem.ToString();
+            DateTime fechaCompleta = DateTime.Parse($"{pickFecha.Date:yyyy-MM-dd} {horaText}");
+
+            // Validar disponibilidad
+            bool ocupado = await _db.FisioOcupadoAsync(fisio.Id, fechaCompleta);
+            if (ocupado)
+            {
+                await DisplayAlert("No disponible",
+                    "Este fisioterapeuta ya tiene una cita en esa hora.", "OK");
+                return;
+            }
+
+            // Crear objeto Cita
+            var cita = new Cita
+            {
+                PacienteId = _usuario.Id,
+                FisioterapeutaId = fisio.Id,
+                NombreFisioterapeuta = fisio.NombreCompleto,
+
+                NombrePaciente = _usuario.NombreCompleto,
+                FechaCompleta = fechaCompleta,
+                Fecha = fechaCompleta.ToString("dd/MM/yyyy"),
+                Hora = fechaCompleta.ToString("HH:mm"),
+                Servicio = pickServicio.SelectedItem?.ToString() ?? "Sin servicio",
+                Notas = txtNotas.Text ?? "",
+                Estado = "Pendiente",
+                Foto = base64Foto
+            };
+
+            // Guardar internamente en SQLite
+            await _db.GuardarCitaAsync(cita);
+
+            // Ir a pantalla de confirmación
+            await Navigation.PushAsync(
+                new CitaReservadaPage(
+                    cita.NombrePaciente,
+                    cita.NombreFisioterapeuta,
+                    cita.Fecha,
+                    cita.Hora,
+                    cita.Servicio,
+                    _db,
+                    _usuario
+                )
+            );
+        }
     }
 }
+
 
 
 

@@ -37,6 +37,22 @@
                         </VerticalStackLayout>
                     </Grid>
 
+                    <!-- FISIOTERAPEUTA -->
+                    <Grid ColumnDefinitions="40,*">
+                        <Image Source="icon_user_add.png"
+                               HeightRequest="28" WidthRequest="28"
+                               VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label Text="Fisioterapeuta"
+                                   FontSize="14"
+                                   TextColor="#1E293B"/>
+                            <Picker x:Name="pickFisio"
+                                    Title="Seleccione fisioterapeuta"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
                     <!-- FECHA -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_fecha.png"
@@ -52,7 +68,7 @@
                         </VerticalStackLayout>
                     </Grid>
 
-                    <!-- HORA -->
+                    <!-- HORA (PICKER DE HORAS) -->
                     <Grid ColumnDefinitions="40,*">
                         <Image Source="icon_hora.png"
                                HeightRequest="28" WidthRequest="28"
@@ -61,10 +77,10 @@
                             <Label Text="Hora"
                                    FontSize="14"
                                    TextColor="#1E293B"/>
-                            <TimePicker x:Name="pickHora"
-                                        Time="08:00"
-                                        BackgroundColor="White"
-                                        HeightRequest="40"/>
+                            <Picker x:Name="pickHora"
+                                    Title="Seleccione hora disponible"
+                                    BackgroundColor="White"
+                                    HeightRequest="40"/>
                         </VerticalStackLayout>
                     </Grid>
 
@@ -104,34 +120,23 @@
                                    HeightRequest="40"/>
                         </VerticalStackLayout>
                     </Grid>
-                    
-
 
                 </VerticalStackLayout>
-               
-
-
             </Border>
 
-
             <!-- FOTO DE LESION -->
-
-                    <Button
-                     x:Name="btnfoto"
-                     Text="Ingresar foto del traumatismo "
-                     BackgroundColor="#1D4ED8"
-                     TextColor="White"
-                     CornerRadius="15"
-                     HeightRequest="50"
-                     Clicked="btnfoto_Clicked"
-                    />
+            <Button
+                x:Name="btnfoto"
+                Text="Ingresar foto del traumatismo"
+                BackgroundColor="#1D4ED8"
+                TextColor="White"
+                CornerRadius="15"
+                HeightRequest="50"
+                Clicked="btnfoto_Clicked" />
 
             <Image x:Name="imgFoto"
-         HeightRequest="150"
-         BackgroundColor="#E5E7EB"
-         
-   />
-
+                   HeightRequest="150"
+                   BackgroundColor="#E5E7EB" />
 
             <!-- BOTÓN RESERVAR -->
             <Button Text="Reservar cita"
@@ -146,5 +151,6 @@
     </ScrollView>
 
 </ContentPage>
+
 
 

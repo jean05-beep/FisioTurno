@@ -8,8 +8,15 @@ namespace FisioTurno.Views
         private readonly AppDatabase _db;
         private readonly Usuario _usuario;
 
-        public CitaReservadaPage(string nombre, string fecha, string hora, string servicio,
-                                 AppDatabase db, Usuario usuario)
+        // ✔ Constructor actualizado: ahora recibe el fisioterapeuta
+        public CitaReservadaPage(
+            string nombre,
+            string fecha,
+            string hora,
+            string servicio,
+            string fisioterapeuta,
+            AppDatabase db,
+            Usuario usuario)
         {
             InitializeComponent();
 
@@ -17,6 +24,7 @@ namespace FisioTurno.Views
             lblFecha.Text = fecha;
             lblHora.Text = hora;
             lblServicio.Text = servicio;
+            lblFisioterapeuta.Text = fisioterapeuta;
 
             _db = db;
             _usuario = usuario;
@@ -24,12 +32,10 @@ namespace FisioTurno.Views
 
         private async void Entendido_Clicked(object sender, EventArgs e)
         {
-            // 👉 Regresar al menú del paciente con db y usuario correcto
+            // Regresar al menú del paciente con db y usuario
             await Navigation.PushAsync(new MenuPacientePage(_db, _usuario));
-
-            // Si quieres REEMPLAZAR completamente la pantalla (sin atrás):
-            // Application.Current.MainPage = new NavigationPage(new MenuPacientePage(_db, _usuario));
         }
     }
 }
+
 
