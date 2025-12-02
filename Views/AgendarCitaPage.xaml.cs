@@ -7,7 +7,7 @@ namespace FisioTurno.Views
     public partial class AgendarCitaPage : ContentPage
     {
         // API PHP
-        private const string UrlCrud = "http://192.168.100.1/FisioTurno/post.php";
+        private const string UrlCrud = "http://192.168.100.154/FisioTurno/post.php";
         private readonly HttpClient cliente = new HttpClient();
 
         private readonly AppDatabase _db;
