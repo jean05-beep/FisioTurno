@@ -36,6 +36,15 @@ namespace FisioTurno.Views
 
         private async void Reservar_Clicked(object sender, EventArgs e)
         {
+            if (fotoTomada == null)
+            {
+                await DisplayAlert("Error", "Debes tomar una foto.", "OK");
+                return;
+            }
+
+            // Convertir foto
+            string base64Foto = await ConvertirFotoBase64(fotoTomada);
+
             // Validación del nombre
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
@@ -64,7 +73,8 @@ namespace FisioTurno.Views
                 Fecha = fecha,
                 Hora = hora,
                 Servicio = servicio,
-                Notas = notas
+                Notas = notas,
+                Foto = base64Foto
             };
 
             // Guardar cita en SQLite

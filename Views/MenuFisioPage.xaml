@@ -66,12 +66,7 @@
                 </Grid>
             </Border>
 
-            <Button
-                x:Name="btnfoto"
-                Text="Ingresar foto del paciente"
-                Clicked="btnfoto_Clicked"
-                />
-            <Image x:Name="imgFoto" HeightRequest="250"/>
+          
 
         </VerticalStackLayout>
     </ScrollView>

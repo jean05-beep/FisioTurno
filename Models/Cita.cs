@@ -22,6 +22,12 @@ namespace FisioTurno.Models
 
         // Fecha completa para ordenamiento
         public DateTime FechaCompleta { get; set; }
+
+        // Foto enviada a la API en Base64
+        public string Foto { get; set; }
+
+        // Ruta de la foto guardada en servidor (viene de la API)
+        public string RutaFoto { get; set; }
     }
 }
 
